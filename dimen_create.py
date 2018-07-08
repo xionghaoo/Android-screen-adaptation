@@ -15,11 +15,11 @@ XXHDPI_SCREEN_WIDTH = 1080.0
 XHDPI_SCREEN_SCALE = 2.0
 XHDPI_SCREEN_WIDTH = 720.0
 
-dimen_type_xxxhdpi = 'dimens-xxxhdpi'
-dimen_type_xxhdpi = 'dimens-xxhdpi'
-dimen_type_xhdpi = 'dimens-xhdpi'
+dimen_type_xxxhdpi = 'values-xxxhdpi'
+dimen_type_xxhdpi = 'values-xxhdpi'
+dimen_type_xhdpi = 'values-xhdpi'
 
-OUTPUT_FILE_NAME = 'dimens-constants.xml'
+OUTPUT_FILE_NAME = 'values-constants.xml'
 
 
 def create_file(dimen_type):

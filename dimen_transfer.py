@@ -16,6 +16,7 @@ XXHDPI_SCREEN_WIDTH = 1080.0
 XHDPI_SCREEN_SCALE = 2.0
 XHDPI_SCREEN_WIDTH = 720.0
 
+dimen_type_xxxhdpi = 'values-xxxhdpi'
 dimen_type_xxhdpi = 'values-xxhdpi'
 dimen_type_xhdpi = 'values-xhdpi'
 
@@ -24,11 +25,14 @@ OUTPUT_FILE_NAME = 'dimens_transfer.xml'
 
 
 def create_dimen_file_from(xxxhdpi_file, dimen_type):
-    folder = r'{0}'.format(dimen_type_xxhdpi)
-    if dimen_type == dimen_type_xxhdpi:
+    folder = r'{0}'.format(dimen_type_xxxhdpi)
+    if dimen_type == dimen_type_xxxhdpi:
+        folder = r'{0}'.format(dimen_type_xxxhdpi)
+    elif dimen_type == dimen_type_xxhdpi:
         folder = r'{0}'.format(dimen_type_xxhdpi)
     elif dimen_type == dimen_type_xhdpi:
         folder = r'{0}'.format(dimen_type_xhdpi)
+
     if not os.path.exists(folder):
         os.mkdir(folder)
 
@@ -58,7 +62,9 @@ def create_dimen_file_from(xxxhdpi_file, dimen_type):
 
 
 def get_dpi_size(size, dimen_type):
-    if dimen_type == dimen_type_xxhdpi:
+    if dimen_type == dimen_type_xxxhdpi:
+        return size
+    elif dimen_type == dimen_type_xxhdpi:
         return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XXHDPI_SCREEN_WIDTH / XXHDPI_SCREEN_SCALE)
     elif dimen_type == dimen_type_xhdpi:
         return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XHDPI_SCREEN_WIDTH / XHDPI_SCREEN_SCALE)
@@ -67,6 +73,7 @@ def get_dpi_size(size, dimen_type):
 
 
 def transfer_xxxhdpi_dimen(xxxhdpi_file):
+    create_dimen_file_from(xxxhdpi_file, dimen_type_xxxhdpi)
     create_dimen_file_from(xxxhdpi_file, dimen_type_xxhdpi)
     create_dimen_file_from(xxxhdpi_file, dimen_type_xhdpi)
 
