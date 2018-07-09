@@ -46,16 +46,18 @@ def create_dimen_file_from(xxxhdpi_file, dimen_type):
         sp_line = re.match(r'.*name=["](.*)["]>(.*)sp.*', l)
         if sp_line:
             dimen_name = sp_line.group(1)
-            dimen_value = get_dpi_size(int(sp_line.group(2)), dimen_type)
-            f.write('\t<dimen name="{0}">{1}sp</dimen>\n'.format(dimen_name, dimen_value))
+            if float(sp_line.group(2)).is_integer() and int(sp_line.group(2)) > 1:
+                dimen_value = get_dpi_size(int(sp_line.group(2)), dimen_type)
+                f.write('\t<dimen name="{0}">{1}sp</dimen>\n'.format(dimen_name, dimen_value))
 
     f.write('\n\t<!--dp transfer from xxxhdpi-->\n')
     for l in lines:
         sp_line = re.match(r'.*name=["](.*)["]>(.*)dp.*', l)
         if sp_line:
             dimen_name = sp_line.group(1)
-            dimen_value = get_dpi_size(int(sp_line.group(2)), dimen_type)
-            f.write('\t<dimen name="{0}">{1}dp</dimen>\n'.format(dimen_name, dimen_value))
+            if float(sp_line.group(2)).is_integer() and int(sp_line.group(2)) > 1:
+                dimen_value = get_dpi_size(int(sp_line.group(2)), dimen_type)
+                f.write('\t<dimen name="{0}">{1}dp</dimen>\n'.format(dimen_name, dimen_value))
 
     f.write('</resources>\n')
     f.close()

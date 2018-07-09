@@ -21,6 +21,11 @@ dimen_type_xhdpi = 'values-xhdpi'
 
 OUTPUT_FILE_NAME = 'values-constants.xml'
 
+SP_START = 1
+SP_END = 61
+DP_START = 1
+DP_END = 501
+
 
 def create_file(dimen_type):
     new_path = r'{0}'.format(dimen_type)
@@ -33,12 +38,12 @@ def create_file(dimen_type):
 
     # create sp line
     file.write('\t<!--sp dimension-->\n')
-    for sp in range(10, 61):
+    for sp in range(SP_START, SP_END):
         file.write('\t<dimen name="x{0}sp">{1}sp</dimen>\n'.format(str(sp), get_screen_dimension(sp, dimen_type)))
 
     # create dp line
     file.write('\n\t<!--dp dimension-->\n')
-    for dp in range(10, 501):
+    for dp in range(DP_START, DP_END):
         file.write('\t<dimen name="x{0}dp">{1}dp</dimen>\n'.format(str(dp), get_screen_dimension(dp, dimen_type)))
 
     file.write('</resources>\n')
