@@ -1,7 +1,18 @@
-# Android-screen-adaptation
-Android屏幕适配方案
+## Android屏幕适配
+> https://www.jianshu.com/p/4fa7b694f242
 
-### UI设计
-我们布局时的的尺寸都是通过UI设计图获得，那么UI是以什么屏幕尺寸为标准来设计的就至关重要了。
-假设UI以iPhone系列plus的尺寸为标准来设计，iPhone8的设计尺寸为1242 x 2208
-https://uiiiuiii.com/screen/ios.htm
+### dimen_create.py
+
+自动生成xxxhdpi、xxhdpi、xhdpi的dimens文件
+
+### dimen_modify.py
+
+该程序将layout下面每个xml文件中dp和sp的值修改为@dimen/x[number]dp格式
+
+### dimen_transfer.py
+
+将现有xxxhdpi dimens文件转换，自动生成xxhdpi和xhdpi的dimens文件
+
+### resources_rename.py
+
+资源批量重命名
