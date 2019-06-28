@@ -15,6 +15,7 @@ XXHDPI_SCREEN_WIDTH = 1080.0
 XHDPI_SCREEN_SCALE = 2.0
 XHDPI_SCREEN_WIDTH = 720.0
 
+# 文件夹名称
 dimen_type_xxxhdpi = 'values-xxxhdpi'
 dimen_type_xxhdpi = 'values-xxhdpi'
 dimen_type_xhdpi = 'values-xhdpi'
@@ -54,9 +55,9 @@ def get_screen_dimension(size, dimen_type):
     if dimen_type == dimen_type_xxxhdpi:
         return size
     elif dimen_type == dimen_type_xxhdpi:
-        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XXHDPI_SCREEN_WIDTH / XXHDPI_SCREEN_SCALE)
+        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XXHDPI_SCREEN_WIDTH / XXHDPI_SCREEN_SCALE, 2)
     elif dimen_type == dimen_type_xhdpi:
-        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XHDPI_SCREEN_WIDTH / XHDPI_SCREEN_SCALE)
+        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XHDPI_SCREEN_WIDTH / XHDPI_SCREEN_SCALE, 2)
     else:
         return 0
 
