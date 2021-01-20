@@ -46,18 +46,20 @@ def create_dimen_file_from(xxxhdpi_file, dimen_type):
         sp_line = re.match(r'.*name=["](.*)["]>(.*)sp.*', l)
         if sp_line:
             dimen_name = sp_line.group(1)
-            if float(sp_line.group(2)).is_integer() and int(sp_line.group(2)) > 1:
-                dimen_value = get_dpi_size(int(sp_line.group(2)), dimen_type)
-                f.write('\t<dimen name="{0}">{1}sp</dimen>\n'.format(dimen_name, dimen_value))
+            sp_value = round(float(sp_line.group(2)), 2)
+            if float(sp_line.group(2)).is_integer() and sp_value > 1:
+                dimen_value = get_dpi_size(sp_value, dimen_type)
+                f.write('\t<dimen name="{0}">{1:.2f}sp</dimen>\n'.format(dimen_name, dimen_value))
 
     f.write('\n\t<!--dp transfer from xxxhdpi-->\n')
     for l in lines:
         sp_line = re.match(r'.*name=["](.*)["]>(.*)dp.*', l)
         if sp_line:
             dimen_name = sp_line.group(1)
-            if float(sp_line.group(2)).is_integer() and int(sp_line.group(2)) > 1:
-                dimen_value = get_dpi_size(int(sp_line.group(2)), dimen_type)
-                f.write('\t<dimen name="{0}">{1}dp</dimen>\n'.format(dimen_name, dimen_value))
+            dp_value = round(float(sp_line.group(2)), 2)
+            if float(sp_line.group(2)).is_integer() and dp_value > 1:
+                dimen_value = get_dpi_size(dp_value, dimen_type)
+                f.write('\t<dimen name="{0}">{1:.2f}dp</dimen>\n'.format(dimen_name, dimen_value))
 
     f.write('</resources>\n')
     f.close()
@@ -67,9 +69,9 @@ def get_dpi_size(size, dimen_type):
     if dimen_type == dimen_type_xxxhdpi:
         return size
     elif dimen_type == dimen_type_xxhdpi:
-        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XXHDPI_SCREEN_WIDTH / XXHDPI_SCREEN_SCALE)
+        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XXHDPI_SCREEN_WIDTH / XXHDPI_SCREEN_SCALE, 2)
     elif dimen_type == dimen_type_xhdpi:
-        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XHDPI_SCREEN_WIDTH / XHDPI_SCREEN_SCALE)
+        return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * XHDPI_SCREEN_WIDTH / XHDPI_SCREEN_SCALE, 2)
     else:
         return 0
 
