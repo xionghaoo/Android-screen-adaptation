@@ -10,7 +10,7 @@ UI_SCREEN_SCALE = 3
 UI_SCREEN_WIDTH = 1920
 
 # 目标屏幕宽度(px)
-sw_dp_list = [800]
+sw_dp_list = [1080]
 # 目标屏幕缩放因子
 sw_scale_list = [1]
 # 默认的dimens.xml文件目录
