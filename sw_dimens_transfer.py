@@ -6,13 +6,15 @@ import re
 import os
 
 # 默认dimens.xml文件的缩放因子和屏幕宽度
-UI_SCREEN_SCALE = 3
-UI_SCREEN_WIDTH = 1920
+UI_SCREEN_SCALE = 1
+UI_SCREEN_WIDTH = 1080
+UI_SCREEN_HEIGHT = 1920
 
 # 目标屏幕宽度(px)
-sw_dp_list = [1080]
+sw_dp_list = [1080, 720, 411, 360, 752, 552]
+height_dp_list = [1920, 1280, 731, 640, 1336, 960]
 # 目标屏幕缩放因子
-sw_scale_list = [1]
+# sw_scale_list = [1]
 # 默认的dimens.xml文件目录
 # res_path = '../app/src/main/res'
 res_path = '.'
@@ -21,7 +23,7 @@ dimens_file = 'dimens.xml'
 
 
 # 创建适配尺寸文件
-def create_dimen_file(target_dp, target_scale):
+def create_dimen_file(target_dp, target_height_dp):
     folder = r'{0}'.format('{0}/values-sw{1}dp'.format(res_path, target_dp))
     if not os.path.exists(folder):
         os.mkdir(folder)
@@ -37,7 +39,7 @@ def create_dimen_file(target_dp, target_scale):
             dimen_name = sp_line.group(1)
             sp_value = round(float(sp_line.group(2)), 2)
             if float(sp_line.group(2)).is_integer() and sp_value > 1:
-                dimen_value = get_dpi_size(sp_value, target_dp, target_scale)
+                dimen_value = get_dpi_size(sp_value, target_dp, target_height_dp)
                 f.write('\t<dimen name="{0}">{1:.2f}sp</dimen>\n'.format(dimen_name, dimen_value))
     # 写入dp尺寸
     f.write('\n\t<!--dp transfer from default-->\n')
@@ -47,7 +49,7 @@ def create_dimen_file(target_dp, target_scale):
             dimen_name = dp_line.group(1)
             dp_value = round(float(dp_line.group(2)), 2)
             if float(dp_line.group(2)).is_integer() and dp_value > 1:
-                dimen_value = get_dpi_size(dp_value, target_dp, target_scale)
+                dimen_value = get_dpi_size(dp_value, target_dp, target_height_dp)
                 f.write('\t<dimen name="{0}">{1:.2f}dp</dimen>\n'.format(dimen_name, dimen_value))
     f.write('</resources>\n')
     print("已生成：" + f.name)
@@ -55,17 +57,22 @@ def create_dimen_file(target_dp, target_scale):
 
 
 # 计算适配尺寸
-def get_dpi_size(size, target_dp, target_scale):
-    return round(size * UI_SCREEN_SCALE / UI_SCREEN_WIDTH * target_dp / target_scale, 2)
+def get_dpi_size(size, target_dp, target_height_dp):
+    height_ratio = UI_SCREEN_HEIGHT / UI_SCREEN_SCALE / target_height_dp
+    width_ratio = UI_SCREEN_WIDTH / UI_SCREEN_SCALE / target_dp
+    if height_ratio > width_ratio:
+        return round(size / height_ratio, 2)
+    else:
+        return round(size / width_ratio, 2)
 
 
 # 适配尺寸迁移
 def transfer():
     if not os.path.exists('{0}/{1}/{2}'.format(res_path, values_folder, dimens_file)):
-        print('错误: values/dimens.xml文件不存在')
+        print('错误: {}/{}/{}文件不存在'.format(res_path, values_folder, dimens_file))
         return
     for index, dp in enumerate(sw_dp_list):
-        create_dimen_file(dp, sw_scale_list[index])
+        create_dimen_file(dp, height_dp_list[index])
 
 
 # 开始尺寸迁移

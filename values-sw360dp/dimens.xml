@@ -1,0 +1,6 @@
+<resources>
+	<!--sp transfer from default-->
+
+	<!--dp transfer from default-->
+	<dimen name="ubt_dimen_10px">3.33dp</dimen>
+</resources>
